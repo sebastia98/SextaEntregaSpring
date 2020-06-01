@@ -2,7 +2,6 @@ package org.formacio.repositori;
 
 import java.util.List;
 
-import org.formacio.domain.Client;
 import org.formacio.domain.Factura;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

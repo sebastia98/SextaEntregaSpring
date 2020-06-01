@@ -1,8 +1,21 @@
 package org.formacio.servei;
 
-import org.formacio.domain.Factura;
+import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.formacio.domain.Factura;
+import org.formacio.domain.LiniaFactura;
+import org.formacio.repositori.FacturesRepositori;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+@Transactional // Siempre que hay un componente Servicio debe suponer una transacción
 public class FacturesService {
+	
+	@Autowired
+	private FacturesRepositori repo;
 
 	
 	/*
@@ -15,6 +28,19 @@ public class FacturesService {
 	 */
 	public Factura afegirProducte (long idFactura, String producte, int totalProducte) {
 		
-		return null;
+		Optional<Factura> fact = repo.findById(idFactura);
+		if (fact.isPresent()) {
+			
+			LiniaFactura linia = new LiniaFactura();
+			
+			linia.setProducte(producte);
+			linia.setTotal(totalProducte);
+			
+			fact.get().getLinies().add(linia);
+			
+			repo.save(fact.get());
+		}
+		
+		return fact.get();
 	}
 }
