@@ -3,14 +3,18 @@ package org.formacio.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "t_factures")
@@ -20,11 +24,11 @@ public class Factura {
 	@Column(name = "fac_id")
 	private Long id;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fac_client")
 	private Client client;
 	
-	@OneToOne
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "lin_factura")
 	private Set<LiniaFactura> linies = new HashSet<>();
 
