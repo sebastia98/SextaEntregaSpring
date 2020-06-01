@@ -2,9 +2,9 @@ package org.formacio.repositori;
 
 import org.formacio.domain.Factura;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface FacturesRepositori extends Repository<Factura, Long>{
+public interface FacturesRepositori extends CrudRepository<Factura, Long>{
 	
 	
 	/*
