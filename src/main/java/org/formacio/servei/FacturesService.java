@@ -1,6 +1,7 @@
 package org.formacio.servei;
 
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +17,9 @@ public class FacturesService {
 	
 	@Autowired
 	private FacturesRepositori repo;
+	
+	@Autowired
+	private FidalitzacioService serv;
 
 	
 	/*
@@ -38,9 +42,17 @@ public class FacturesService {
 			
 			fact.get().getLinies().add(linia);
 			
+			notifica(fact.get());
+			
 			repo.save(fact.get());
 		}
 		
 		return fact.get();
+	}
+	
+	public void notifica(Factura fact) {
+		if (fact.getLinies().size() >= 4) {
+			serv.notificaRegal(fact.getClient().getEmail());
+		}
 	}
 }
